@@ -2,9 +2,9 @@ namespace E_Commerce.Api.DataLayer.Models;
 
 public class ImageFile : BaseModel
 {
-    public ImageFile(string path)
+    public ImageFile(string url)
     {
-        Path = path;
+        Url = url;
     }
-    public string Path { get;  set; }
+    public string Url { get;  set; }
 }

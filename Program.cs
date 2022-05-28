@@ -1,5 +1,8 @@
+using System.Reflection;
 using E_Commerce.Api.DataLayer.Database;
 using E_Commerce.Api.Models;
+using E_Commerce.Api.Profiles;
+using E_Commerce.Api.Services;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -19,6 +22,8 @@ var dbConfig = builder.Configuration.GetSection(nameof(DatabaseConfiguration)).G
 
 builder.Services.AddSingleton<IMongoClient>(new MongoClient(connectionString: dbConfig.ConnectionString));
 builder.Services.AddSingleton<IDbContext, DbContext>();
+builder.Services.AddTransient<IImageServices, ImageServices>();
+builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(ImageFileProfile)));
 
 var app = builder.Build();
 
@@ -29,10 +34,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseStaticFiles();
-
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
