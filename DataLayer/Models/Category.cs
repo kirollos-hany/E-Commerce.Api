@@ -5,6 +5,11 @@ namespace E_Commerce.Api.DataLayer.Models;
 
 public class Category : BaseModel
 {
+    public Category()
+    {
+        Name = string.Empty;
+        Image = new ImageFile("");
+    }
     public Category(string name, ImageFile image)
     {
         Name = name;

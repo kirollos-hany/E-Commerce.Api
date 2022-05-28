@@ -25,8 +25,7 @@ namespace E_Commerce.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
-        [Route("/upload")]
+        [HttpPost("upload")]
         public async Task<IActionResult> UploadImage([FromForm] UploadImageDto uploadImageDto)
         {
             if (!ModelState.IsValid)
@@ -43,8 +42,7 @@ namespace E_Commerce.Api.Controllers
             return Ok(dto);
         }
 
-        [HttpPost]
-        [Route("/upload/collection")]
+        [HttpPost("upload/collection")]
         public async Task<IActionResult> UploadImages([FromForm] UploadImagesDto uploadImagesDto)
         {
             if (!ModelState.IsValid)
