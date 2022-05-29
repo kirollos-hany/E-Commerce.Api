@@ -57,8 +57,8 @@ namespace E_Commerce.Api.Controllers
             return Ok(_mapper.Map<IEnumerable<CategoryReadDto>>(cats));
         }
 
-        [HttpGet("{id}", Name = "GetById")]
-        public async Task<IActionResult> GetById([Required(ErrorMessage = "Category id is required")] string id)
+        [HttpGet("{id}", Name = "GetCategoryById")]
+        public async Task<IActionResult> GetCategoryById([Required(ErrorMessage = "Category id is required")] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace E_Commerce.Api.Controllers
 
             await _dbContext.Categories.InsertOneAsync(category);
 
-            return CreatedAtRoute(nameof(GetById), new { id = category.Id }, _mapper.Map<CategoryReadDto>(category));
+            return CreatedAtRoute(nameof(GetCategoryById), new { id = category.Id }, _mapper.Map<CategoryReadDto>(category));
         }
 
         [HttpPut]
@@ -107,7 +107,7 @@ namespace E_Commerce.Api.Controllers
 
             await _dbContext.Categories.ReplaceOneAsync(c => c.Id == category.Id, category);
 
-            return CreatedAtRoute(nameof(GetById), new { id = category.Id }, _mapper.Map<CategoryReadDto>(category));
+            return CreatedAtRoute(nameof(GetCategoryById), new { id = category.Id }, _mapper.Map<CategoryReadDto>(category));
         }
 
         [HttpDelete("{id}")]

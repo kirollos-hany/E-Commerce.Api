@@ -27,8 +27,9 @@ public class Product : BaseModel
 
     [BsonRequired] public uint QuantityInStock { get;  set; }
 
-    public void Update(string categoryId, string name, string description, decimal price, uint quantityInStock)
+    public void Update(string categoryId, string name, string description, decimal price, uint quantityInStock, IEnumerable<ImageFile> images)
     {
+        Images = images;
         Name = name;
         Description = description;
         Price = price;
