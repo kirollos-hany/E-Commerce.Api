@@ -34,16 +34,26 @@ namespace E_Commerce.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var cats = await _dbContext.Categories.AsQueryable().ToListAsync();
+            var cats = await _dbContext.Categories.AsQueryable().OrderByDescending(c => c.CreatedAt).ToListAsync();
             return Ok(_mapper.Map<IEnumerable<CategoryReadDto>>(cats));
         }
 
-        [HttpGet("{page:int}")]
-        public async Task<IActionResult> GetPaginated(int page = 1)
+        [HttpGet("search")]
+        public async Task<IActionResult> GetByName([FromQuery] string name)
         {
-            const int takeCount = 4;
+            var category = await _dbContext.Categories.AsQueryable()
+                .FirstOrDefaultAsync(c => c.Name.ToLower().Contains(name.ToLower()));
+            if (category == default) return NotFound();
+
+            return Ok(_mapper.Map<CategoryReadDto>(category));
+        }
+
+        [HttpGet("pages")]
+        public async Task<IActionResult> GetPaginated([FromQuery] int page = 1, [FromQuery] int takeCount = 4)
+        {
             var cats = await _dbContext.Categories.AsQueryable().OrderByDescending(c => c.CreatedAt)
                 .Skip((page - 1) * takeCount).Take(takeCount).ToListAsync();
+
             return Ok(_mapper.Map<IEnumerable<CategoryReadDto>>(cats));
         }
 
