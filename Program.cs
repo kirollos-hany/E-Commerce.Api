@@ -1,5 +1,6 @@
 using System.Reflection;
 using E_Commerce.Api.DataLayer.Database;
+using E_Commerce.Api.HostedServices;
 using E_Commerce.Api.Models;
 using E_Commerce.Api.Profiles;
 using E_Commerce.Api.Services;
@@ -21,6 +22,7 @@ builder.Services.AddSingleton<IDatabaseConfiguration>(sp =>
 var dbConfig = builder.Configuration.GetSection(nameof(DatabaseConfiguration)).Get<DatabaseConfiguration>();
 
 builder.Services.AddSingleton<IMongoClient>(new MongoClient(connectionString: dbConfig.ConnectionString));
+builder.Services.AddHostedService<ConfigureMongoDb>();
 builder.Services.AddSingleton<IDbContext, DbContext>();
 builder.Services.AddTransient<IImageServices, ImageServices>();
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(ImageFileProfile)));
