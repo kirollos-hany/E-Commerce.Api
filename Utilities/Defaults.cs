@@ -1,6 +1,6 @@
 namespace E_Commerce.Api.Utilities;
 
-public class Defaults
+public static class Defaults
 {
     public static string DefaultCustomerImage => "images/default_customer.jpeg";
 

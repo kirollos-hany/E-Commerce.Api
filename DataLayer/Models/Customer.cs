@@ -5,7 +5,7 @@ namespace E_Commerce.Api.DataLayer.Models;
 public class Customer : BaseModel
 {
     public Customer(string firstName, string lastName, string email, PhoneNumber phoneNumber, ImageFile image,
-        DateTime dateOfBirth, CustomerAddress address)
+        DateOnly dateOfBirth, CustomerAddress address)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -21,12 +21,12 @@ public class Customer : BaseModel
     [BsonRequired] public string Email { get;  set; }
     [BsonRequired] public PhoneNumber PhoneNumber { get;  set; }
     [BsonRequired] public ImageFile Image { get;  set; }
-    [BsonRequired] public DateTime DateOfBirth { get;  set; }
+    [BsonRequired] public DateOnly DateOfBirth { get;  set; }
 
     [BsonRequired] public CustomerAddress Address { get;  set; }
 
     public void Update(string firstName, string lastName, string email, PhoneNumber phoneNumber, ImageFile image,
-        DateTime dateOfBirth, CustomerAddress address)
+        DateOnly dateOfBirth, CustomerAddress address)
     {
         FirstName = firstName;
         LastName = lastName;
